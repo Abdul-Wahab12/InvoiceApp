@@ -7,7 +7,7 @@
         <span>There are 4 total invoices</span>
       </div>
       <div class="right flex">
-        <div @click="toggleFilterMenu" class="filter flex" ref="filter">
+        <div @click="toggleFilterMenu" class="filter flex">
           <span>Filter by status</span>
           <img src="../assets/icon-arrow-down.svg" alt="" />
           <ul v-show="filterMenu" class="filter-menu">
@@ -36,11 +36,15 @@ export default {
   name: 'HomeView',
   data() {
     return {
-      
+      filterMenu: null
     }
   },
-  components: {
-
+  components: {},
+  methods: {
+    newInvoice() {},
+    toggleFilterMenu() {
+      this.filterMenu = !this.filterMenu
+    }
   }
 }
 </script>
@@ -73,16 +77,52 @@ export default {
       .filter {
         position: relative;
         margin-right: 40px;
-
-        span,
-        img {
-          pointer-events: none;
-        }
+        cursor: pointer; 
 
         img {
           margin-left: 12px;
           width: 9px;
           height: 5px;
+        }
+
+        .filter-menu {
+          width: 120px;
+          position: absolute;
+          top: 25px;
+          list-style: none;
+          background-color: #1e2139;
+          box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+
+          li {
+            cursor: pointer;
+            font-size: 12px;
+            padding: 10px 20px;
+
+            &:hover {
+              color: #1e2139;
+              background-color: #fff;
+            }
+          }
+        }
+      }
+
+      .button {
+        padding: 8px 10px;
+        background-color: #7c5dfa;
+        border-radius: 40px;
+
+        .inner-button {
+          margin-right: 8px;
+          border-radius: 50%;
+          padding: 8px;
+          align-items: center;
+          justify-content: center;
+          background-color: #fff;
+
+          img {
+            width: 10px;
+            height: 10px;
+          }
         }
       }
     }
