@@ -25,6 +25,37 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Bill To -->
+            <div class="bill-to flex flex-column">
+                <h4>Bill To</h4>
+                <div class="input flex flex-column">
+                    <label for="clientName">Client's Name</label>
+                    <input required type="text" id="clientName" v-model="clientName">
+                </div>
+                <div class="input flex flex-column">
+                    <label for="clientEmail">Client's Email</label>
+                    <input required type="text" id="clientEmail" v-model="clientEmail">
+                </div>
+                <div class="input flex flex-column">
+                    <label for="clientStreetAddress">Street address</label>
+                    <input required type="text" id="clientStreetAddress" v-model="clientStreetAddress">
+                </div>
+                <div class="location-details flex">
+                    <div class="input flex flex-column">
+                        <label for="clientCity">City</label>
+                        <input required type="text" id="clientCity" v-model="clientCity">
+                    </div>
+                    <div class="input flex flex-column">
+                        <label for="clientZipCode">Zip Code</label>
+                        <input required type="text" id="clientZipCode" v-model="clientZipCode">
+                    </div>
+                    <div class="input flex flex-column">
+                        <label for="clientCountry">Country</label>
+                        <input required type="text" id="clientCountry" v-model="clientCountry">
+                    </div>
+                </div>
+            </div>
         </form>
     </div>
 </template>
