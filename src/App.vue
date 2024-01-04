@@ -1,8 +1,14 @@
 <template>
-  <div class="app flex">
-    <Navigation />
-    <div class="app-content flex flex-column">
-      <router-view/>
+  <div>
+    <div v-if="!mobile" class="app flex flex-column">
+      <Navigation />
+      <div class="app-content flex flex-column">
+        <router-view />
+      </div>
+    </div>
+    <div v-else class="mobile-message flex flex-column">
+      <h2>Sorry, this app is not supported on Mobile Devices. </h2>
+      <p>To use this app, please use a computer or Tablet</p>
     </div>
   </div>
 </template>
@@ -11,9 +17,28 @@
 import Navigation from './components/Navigation.vue';
 
 export default {
-components: {
-  Navigation
-}
+  data() {
+    return {
+      mobile: null,
+    }
+  },
+  created() {
+    this.checkScreen();
+    window.addEventListener("resize", this.checkScreen)
+  },
+  components: {
+    Navigation
+  },
+  methods: {
+    checkScreen() {
+      const windowWidth = window.innerWidth;
+      if (windowWidth <= 750) {
+        this.mobile = true;
+        return;
+      }
+      this.mobile = false;
+    }
+  }
 }
 </script>
 
@@ -25,7 +50,33 @@ components: {
   padding: 0;
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
+}
+
+.app {
   background-color: #141625;
+  min-height: 100vh;
+
+  @media(min-width: 900px) {
+    flex-direction: row !important;
+  }
+  .app-content {
+    padding: 0 20px;
+    flex: 1;
+    position: relative;
+  }
+}
+
+.mobile-message {
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #141625;
+  color: #fff;
+
+  p {
+    margin-top: 16px;
+  }
 }
 
 button,
@@ -95,6 +146,7 @@ button,
     border-radius: 50%;
     margin-right: 8px;
   }
+
   font-size: 12px;
   margin-right: 30px;
   align-items: center;
@@ -106,6 +158,7 @@ button,
   &::before {
     background-color: #33d69f;
   }
+
   color: #33d69f;
   background-color: rgba(51, 214, 160, 0.1);
 }
@@ -114,6 +167,7 @@ button,
   &::before {
     background-color: #ff8f00;
   }
+
   color: #ff8f00;
   background-color: rgba(255, 145, 0, 0.1);
 }
@@ -122,6 +176,7 @@ button,
   &::before {
     background-color: #dfe3fa;
   }
+
   color: #dfe3fa;
   background-color: rgba(223, 227, 250, 0.1);
 }
