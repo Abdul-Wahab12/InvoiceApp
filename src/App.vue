@@ -3,6 +3,7 @@
     <div v-if="!mobile" class="app flex flex-column">
       <Navigation />
       <div class="app-content flex flex-column">
+        <InvoiceModal />
         <router-view />
       </div>
     </div>
@@ -15,6 +16,7 @@
 
 <script>
 import Navigation from './components/Navigation.vue';
+import InvoiceModal from './components/InvoiceModal.vue';
 
 export default {
   data() {
@@ -22,12 +24,13 @@ export default {
       mobile: null,
     }
   },
+  components: {
+    Navigation,
+    InvoiceModal
+  },
   created() {
     this.checkScreen();
     window.addEventListener("resize", this.checkScreen)
-  },
-  components: {
-    Navigation
   },
   methods: {
     checkScreen() {
@@ -59,6 +62,7 @@ export default {
   @media(min-width: 900px) {
     flex-direction: row !important;
   }
+
   .app-content {
     padding: 0 20px;
     flex: 1;
