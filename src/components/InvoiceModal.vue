@@ -157,6 +157,7 @@ export default {
     width: 100%;
     height: 100vh;
     overflow: scroll;
+
     @media(min-width: 900px) {
         left: 90px;
     }
@@ -186,6 +187,7 @@ export default {
             font-size: 12px;
             margin-bottom: 24px;
         }
+
         // Bill to - Bill from
 
         .bill-to,
@@ -206,6 +208,7 @@ export default {
         .invoice-work {
             .payment {
                 gap: 24px;
+
                 div {
                     flex: 1;
                 }
@@ -228,8 +231,62 @@ export default {
                         .qty {
                             flex-basis: 10%;
                         }
+
+                        .price {
+                            flex-basis: 20%;
+                        }
+
+                        .total {
+                            flex-basis: 20%;
+                            align-self: center;
+                        }
+                    }
+
+                    .table-heading {
+                        margin-bottom: 16px;
+
+                        th {
+                            text-align: left;
+                        }
+                    }
+
+                    .table-items {
+                        position: relative;
+                        margin-bottom: 24px;
+
+                        img {
+                            position: absolute;
+                            top: 15px;
+                            right: 0;
+                            width: 12px;
+                            height: 16px;
+                        }
                     }
                 }
+
+                .button {
+                    color: #fff;
+                    background-color: #252945;
+                    align-items: center;
+                    justify-content: center;
+                    width: 100%;
+
+                    img {
+                        margin-right: 4px;
+                    }
+                }
+            }
+        }
+
+        .save {
+            margin-top: 60px;
+
+            div {
+                flex: 1;
+            }
+
+            .right {
+                justify-content: flex-end;
             }
         }
     }
