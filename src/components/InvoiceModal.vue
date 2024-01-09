@@ -119,6 +119,7 @@
 </template>
 
 <script>
+import { uid } from 'uid';
 import { mapMutations } from 'vuex';
 
 export default {
@@ -152,6 +153,18 @@ export default {
         ...mapMutations(['TOGGLE_INVOICE']),
         closeInvoice() {
             this.TOGGLE_INVOICE();
+        },
+        addNewInvoiceItem() {
+            this.invoiceItemList.push({
+                id: uid(),
+                itemName: "",
+                qty: "",
+                price: 0,
+                total: 0,
+            })
+        },
+        deleteInvoiceItem(id) {
+            this.invoiceItemList = this.invoiceItemList.filter((item) => item.id !== id);
         }
     },
     watch: {
@@ -169,6 +182,7 @@ export default {
         console.log("latest Date: ", this.invoiceDate);
     }
 }
+
 </script>
 
 <style lang="scss" scoped>
@@ -286,6 +300,7 @@ export default {
                             right: 0;
                             width: 12px;
                             height: 16px;
+                            cursor: pointer;
                         }
                     }
                 }
