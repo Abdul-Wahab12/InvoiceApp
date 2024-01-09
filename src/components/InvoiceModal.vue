@@ -125,6 +125,7 @@ export default {
     name: 'invoiceModal',
     data() {
         return {
+            dateOptions: { year: "numeric", month: "short", day: "numeric" },
             billerStreetAddress: null,
             billerCity: null,
             billerZipCode: null,
@@ -152,6 +153,13 @@ export default {
         closeInvoice() {
             this.TOGGLE_INVOICE();
         }
+    },
+    created() {
+        // Get current date for invoice date field
+        this.invoiceDateUnix = Date.now();
+        console.log("Current Date :", this.invoiceDateUnix);
+        this.invoiceDate = new Date(this.invoiceDateUnix).toLocaleDateString("en-us", this.dateOptions);
+        console.log("latest Date: ", this.invoiceDate);
     }
 }
 </script>
@@ -165,6 +173,9 @@ export default {
     width: 100%;
     height: 100vh;
     overflow: scroll;
+    &::-webkit-scrollbar {
+        display: none;
+    }
 
     @media(min-width: 900px) {
         left: 90px;
