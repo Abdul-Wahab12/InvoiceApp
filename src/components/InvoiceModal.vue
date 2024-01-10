@@ -1,6 +1,7 @@
 <template>
     <div @click="checkClick" ref="invoiceWrap" class="invoice-wrap flex flex-column">
         <form @submit.prevent="submitForm" class="invoice-content">
+            <Loading v-show="loading"/>
             <h1>New Invoice</h1>
 
             <!-- Bill Form -->
@@ -107,11 +108,11 @@
             <!-- Save/Exit Button -->
             <div class="save flex">
                 <div class="left">
-                    <button @click="closeInvoice" class="red">Cancel</button>
+                    <button type="button" @click="closeInvoice" class="red">Cancel</button>
                 </div>
                 <div class="right flex">
-                    <button @click="saveDraft" class="dark-purple">Save Draft</button>
-                    <button @click="publishInvoice" class="purple">Create Invoice</button>
+                    <button type="submit" @click="saveDraft" class="dark-purple">Save Draft</button>
+                    <button type="submit" @click="publishInvoice" class="purple">Create Invoice</button>
                 </div>
             </div>
         </form>
@@ -120,6 +121,7 @@
 
 <script>
 import db from '../firebase/firebaseInit';
+import Loading  from './Loading.vue'; 
 import { uid } from 'uid';
 import { mapMutations } from 'vuex';
 
@@ -128,6 +130,7 @@ export default {
     data() {
         return {
             dateOptions: { year: "numeric", month: "short", day: "numeric" },
+            loading: null,
             billerStreetAddress: null,
             billerCity: null,
             billerZipCode: null,
@@ -149,6 +152,9 @@ export default {
             invoiceItemList: [],
             invoiceTotal: 0,
         }
+    },
+    components: {
+        Loading
     },
     methods: {
         ...mapMutations(['TOGGLE_INVOICE']),
@@ -191,11 +197,12 @@ export default {
                 return;
             }
 
+            this.loading = true;
             this.calInvoiceTotal();
 
-            const database = db.collection("invoices").doc();
+            const dataBase = db.collection("invoices").doc();
 
-            await database.set({
+            await dataBase.set({
                 invoiceId: uid(6),
                 billerStreetAddress: this.billerStreetAddress,
                 billerCity: this.billerCity,
@@ -218,8 +225,9 @@ export default {
                 invoicePending: this.invoicePending,
                 invoiceDraft: this.invoiceDraft,
                 invoicePaid: null
-            })
+            });
 
+            this.loading = false;
             this.TOGGLE_INVOICE();
         },
 
