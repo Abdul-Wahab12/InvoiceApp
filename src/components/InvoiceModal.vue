@@ -157,7 +157,15 @@ export default {
         Loading
     },
     methods: {
-        ...mapMutations(['TOGGLE_INVOICE']),
+        ...mapMutations(["TOGGLE_INVOICE", "TOGGLE_MODAL"]),
+
+        checkClick(e) {
+            console.log("Event: ", e);
+            if(e.target === this.$refs.invoiceWrap) {
+                this.TOGGLE_MODAL();
+            }
+        },
+
         closeInvoice() {
             this.TOGGLE_INVOICE();
         },
