@@ -1,12 +1,64 @@
 <template>
-    <div>
-        <h2>Invoice View</h2>
+    <div v-if="currentInvoice" class="invoice-view container">
+        <router-link class="nav-link flex" :to="{ name: 'Home' }">
+            <img src="../assets//icon-arrow-left.svg" alt="" /> Go Back
+        </router-link>
+        <div class="header flex">
+            <div class="left flex">
+                <span>Status</span>
+                <div 
+                    class="status-button flex" 
+                    :class="{
+                        paid: currentInvoice.invoicePaid,
+                        draft: currentInvoice.invoiceDraft,
+                        pending: currentInvoice.invoicePending
+                    }"
+                >
+                    <span v-if="currentInvoice.invoicePaid">Paid</span>
+                    <span v-if="currentInvoice.invoiceDraft">Draft</span>
+                    <span v-if="currentInvoice.invoicePending">Pending</span>
+                </div>
+            </div>
+            <div class="right flex">
+                <button @click="toggleEditInvoice(currentInvoice.docId)" class="dark-purple">Edit</button>
+                <button @click="deleteInvoice(currentInvoice.docId)" class="red">Delete</button>
+                <button v-if="currentInvoice.invoicePending" @click="updateStatusToPaid(currentInvoice.docId)" class="green">Mark as Paid</button>
+                <button 
+                    v-if="currentInvoice.invoicePaid || currentInvoice.invoiceDraft" 
+                    class="orange"
+                    @click="InvoiceStatusToDraft" 
+                >
+                    Mark as Pending
+                </button>
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
-export default {
+import { mapMutations, mapState } from 'vuex';
 
+export default {
+    name: 'invoiceView',
+    data() {
+        return {
+            currentInvoice: null,
+        }
+    },
+    created() {
+        this.getCurrentInvoice();
+    },
+    methods: {
+        ...mapMutations(["SET_CURRENT_INVOICE"]),
+
+        getCurrentInvoice() {
+            this.SET_CURRENT_INVOICE(this.$route.params.invoiceId);
+            this.currentInvoice = this.currentInvoiceArray[0];
+        }
+    },
+    computed: {
+        ...mapState(["currentInvoiceArray"])
+    }
 }
 </script>
 

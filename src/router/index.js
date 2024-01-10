@@ -5,7 +5,7 @@ import InvoiceView from '../views/InvoiceView.vue';
 const routes = [
   {
     path: '/',
-    name: 'home',
+    name: 'Home',
     component: HomeView
   },
   {
