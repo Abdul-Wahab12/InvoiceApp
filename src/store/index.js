@@ -19,17 +19,18 @@ export default createStore({
     },
     SET_INVOICE_DATA(state, payload) {
       state.invoiceData.push(payload);
+      console.log("Invoice Data:", state.invoiceData)
     },
     INVOICES_LOADED(state) {
       state.invoicesLoaded = true;
     }
   },
   actions: {
-    async GET_INVOICES({commit}, state) {
+    async GET_INVOICES({commit, state}) {
       const getData = db.collection('invoices');
       const results = await getData.get();
       console.log("Firebase Result: ", results);
-      results.forEach(doc => {
+      results.forEach((doc) => {
         if(!state.invoiceData.some(invoice => invoice.docId === doc.id)) {
           const data = {
             docId: doc.id,
